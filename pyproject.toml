@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "linecite-sync"
+version = "0.1.0.dev0"
+description = "Transport companion for linecite's cross-host snapshot exchange - moves digest-verified memory snapshots over dumb channels (directories, git); no servers"
+readme = "README.md"
+license = "Apache-2.0"
+requires-python = ">=3.9"
+# Pinned to linecite's contract-v0 snapshot (plan: switch to a PyPI
+# version pin once linecite publishes). Dev override: pip install -e
+# ../linecite.
+dependencies = [
+    "linecite @ git+https://github.com/jiarung/linecite@b129659b09ea7f1b7731b8ca780f773b52eda4df",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7"]
+
+[project.scripts]
+linecite-sync = "linecite_sync.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

@@ -1,0 +1,18 @@
+name: ci
+on:
+  push: {branches: [main]}
+  pull_request: {}
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: jiarung/linecite
+          path: linecite
+          ref: b129659b09ea7f1b7731b8ca780f773b52eda4df   # contract-v0 pin — bump deliberately
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - run: pip install -e ./linecite -e ".[dev]"
+      - run: pytest -q
